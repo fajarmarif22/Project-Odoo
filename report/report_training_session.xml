@@ -1,0 +1,139 @@
+<!-- File: odoo_training/report/report_session_template.xml -->
+<odoo>
+  <template id="header_session">
+      <t t-if="o and 'company_id' in o">
+          <t t-set="company" t-value="o.company_id"/>
+      </t>
+      <t t-if="not o or not 'company_id' in o">
+          <t t-set="company" t-value="res_company"/>
+      </t>
+      <div class="header">
+          <div class="row mt32 mb32">
+              <div class="col-6">
+                  <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 100px;"/>
+              </div>
+              <div class="col-6 text-right">
+                  <span t-field="company.partner_id"/>
+                  <br/>
+                  <span t-field="company.partner_id.street"/>
+                  <br/>
+                  <span t-field="company.partner_id.city"/>
+                  <br/>
+                  <span t-field="company.partner_id.country_id"/>
+                  <br/>
+                  <span t-field="company.partner_id.vat"/>
+                  <br/>
+              </div>
+          </div>
+      </div>
+  </template>
+
+  <template id="body_session">
+      <div class="page">
+          <div class="d-flex justify-content-center">
+              <table class="table table-bordered" style="width:50%">
+                  <tbody>
+                      <tr>
+                          <td style="width:25%;">Course</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.course_id.name"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Session</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.name"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Instructor</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.partner_id.name"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Seats</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.seats"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Taken Seats</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.taken_seats"/>%
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <table class="table table-bordered" style="width:50%">
+                  <tbody>
+                      <tr>
+                          <td style="width:25%;">Start Date</td>
+                          <td style="width:75%;">
+                              <t t-if="o.start_date">
+                                  <t t-esc="o.start_date.strftime('%d/%m/%Y')"/>
+                              </t>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">End Date</td>
+                          <td style="width:75%;">
+                              <t t-if="o.end_date">
+                                  <t t-esc="o.end_date.strftime('%d/%m/%Y')"/>
+                              </t>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Duration</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.duration"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="width:25%;">Attendees</td>
+                          <td style="width:75%;">
+                              <t t-esc="o.attendees_count"/>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <table class="table table-bordered mt-4">
+              <thead>
+                  <tr>
+                      <td class="text-center">Name</td>
+                      <td class="text-center">Email</td>
+                      <td class="text-center">Gender</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <t t-foreach="o.attendee_ids" t-as="attendee">
+                      <t t-set="gender" t-value="dict([('male','Pria'),('female','Wanita'), (False,'')])"/>
+                      <tr>
+                          <td>
+                              <t t-esc="attendee.name"/>
+                          </td>
+                          <td>
+                              <t t-esc="attendee.email"/>
+                          </td>
+                          <td>
+                              <t t-esc="gender[attendee.gender]"/>
+                          </td>
+                      </tr>
+                  </t>
+              </tbody>
+          </table>
+      </div>
+  </template>
+
+  <template id="report_session">
+      <t t-call="web.html_container">
+          <t t-foreach="docs" t-as="o">
+              <t t-call="odoo_training.header_session"/>
+              <t t-call="web.external_layout">
+                  <t t-call="odoo_training.body_session"/>
+              </t>
+          </t>
+      </t>
+  </template>
+</odoo>

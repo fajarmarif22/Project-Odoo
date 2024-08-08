@@ -1,0 +1,11 @@
+<odoo>
+    <record id="data_course_1" model="training.course">
+      <field name="name">Technical</field>
+      <field name="description">Training technical memiliki tujuan agar user dapat membuat dan mengcustom modul ketika implementasi</field>
+    </record>
+
+    <record id="data_course_2" model="training.course">
+      <field name="name">Functional</field>
+      <field name="description">Training functional memiliki tujuan agar user dapat membuat dan mengoperasikan sistem secara baik dan benar</field>
+    </record>
+</odoo>

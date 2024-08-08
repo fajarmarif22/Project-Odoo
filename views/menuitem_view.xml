@@ -1,0 +1,17 @@
+<odoo>
+  <!-- Menu Utama -->
+  <menuitem id="main_menu_training" name="Training"/>
+  
+  <!-- Menu Parent -->
+  <menuitem id="menu_bar_training" name="Training Course" parent="main_menu_training"/>
+  <menuitem id="menu_bar_configuration" name="Configuration" parent="main_menu_training"/>
+  
+  <!-- Menu Parent Training -->
+  <menuitem id="menu_item_training_course" name="Course" parent="menu_bar_training" action="training_course_action"/>
+  <menuitem id="menu_item_training_session" name="Session" parent="menu_bar_training" action="training_session_action"/>
+  
+  <!-- Menu Child Konfigurasi -->
+  <menuitem id="menu_item_training_instructor" name="Instructor" parent="menu_bar_configuration" action="training_instructor_action"/>
+  <menuitem id="menu_item_training_attendee" name="Attendee" parent="menu_bar_configuration" action="training_attendee_action"/>
+  
+</odoo> 
